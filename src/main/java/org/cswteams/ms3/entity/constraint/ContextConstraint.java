@@ -13,7 +13,7 @@ import java.util.List;
  * Context for <i>constraints</i> validation.
  */
 @Data
-public class ContextConstraint {
+public class ContextConstraint implements IContextConstraint {
 
     @NotNull
     private DoctorUffaPriority doctorUffaPriority;

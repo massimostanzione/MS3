@@ -8,7 +8,7 @@ import org.cswteams.ms3.entity.scheduling.DoctorScheduleState;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class UPContextConstraint {
+public class UPContextConstraint implements IContextConstraint{
 
     @NotNull
     private DoctorScheduleState doctorScheduleState;
