@@ -8,7 +8,7 @@ import org.cswteams.ms3.entity.scheduling.DoctorScheduleState;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class UPContextConstraint implements IContextConstraint{
+public class ContextConstraintUffaPoints implements IContextConstraint{
 
     @NotNull
     private DoctorScheduleState doctorScheduleState;
@@ -16,7 +16,7 @@ public class UPContextConstraint implements IContextConstraint{
     @NotNull
     private ConcreteShift concreteShift;
 
-    public UPContextConstraint(DoctorScheduleState doctorScheduleState, ConcreteShift concreteShift) {
+    public ContextConstraintUffaPoints(DoctorScheduleState doctorScheduleState, ConcreteShift concreteShift) {
         this.concreteShift = concreteShift;
         this.doctorScheduleState = doctorScheduleState;
     }

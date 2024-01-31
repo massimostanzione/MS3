@@ -3,11 +3,11 @@ package org.cswteams.ms3.control.scheduler;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cswteams.ms3.control.scocciatura.UPControllerScocciatura;
+import org.cswteams.ms3.control.scocciatura.ControllerScocciaturaUffaPoints;
 import org.cswteams.ms3.control.utils.DoctorAssignmentUtil;
 import org.cswteams.ms3.entity.*;
 import org.cswteams.ms3.entity.constraint.Constraint;
-import org.cswteams.ms3.entity.constraint.UPContextConstraint;
+import org.cswteams.ms3.entity.constraint.ContextConstraintUffaPoints;
 import org.cswteams.ms3.entity.scheduling.DoctorScheduleState;
 import org.cswteams.ms3.enums.ConcreteShiftDoctorStatus;
 import org.cswteams.ms3.enums.Seniority;
@@ -16,40 +16,23 @@ import org.cswteams.ms3.exception.IllegalScheduleException;
 import org.cswteams.ms3.exception.NotEnoughFeasibleUsersException;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Getter
 @Setter
-public class UPScheduleBuilder {
+public class ScheduleBuilderUffaPoints extends AbstractScheduleBuilder {
 
-
-    private final Logger logger = Logger.getLogger(ScheduleBuilder.class.getName());
-
-    /**
-     * List of constraints to be applied to each couple (ConcreteShift, User)
-     */
-    @NotNull
-    private List<Constraint> allConstraints;
 
     /**
      * Objects representing the state of schedule building for each participant doctor
      */
     private Map<Long, DoctorScheduleState> allUserScheduleStates;
 
-    /**
-     * Shift schedule to be built
-     */
-    private Schedule schedule;
+    // TODO si può generalizzare? per ora no
+    private ControllerScocciaturaUffaPoints controllerScocciatura;
 
-    /**
-     * Instance of controllerScocciatura
-     * TODO generalizzare
-     */
-    private UPControllerScocciatura controllerScocciatura;
 
     /**
      * This method validates date parameters passed to the schedule builder.
@@ -108,7 +91,7 @@ public class UPScheduleBuilder {
      * @param doctors           Set of doctors that can be added in the schedule
      * @throws IllegalScheduleException Exception thrown when there are some problems in the configuration parameters of the schedule
      */
-    public UPScheduleBuilder(LocalDate startDate, LocalDate endDate, List<Constraint> allConstraints, List<ConcreteShift> allAssignedShifts, List<Doctor> doctors) throws IllegalScheduleException {
+    public ScheduleBuilderUffaPoints(LocalDate startDate, LocalDate endDate, List<Constraint> allConstraints, List<ConcreteShift> allAssignedShifts, List<Doctor> doctors) throws IllegalScheduleException {
         // Checks on the parameters state
 
         validateDates(startDate, endDate);
@@ -143,7 +126,7 @@ public class UPScheduleBuilder {
      * @param schedule       An existing schedule from which to start a new one
      * @throws IllegalScheduleException Exception thrown when there are some problems in the configuration parameters of the schedule
      */
-    public UPScheduleBuilder(List<Constraint> allConstraints, List<Doctor> doctors, Schedule schedule) throws IllegalScheduleException {
+    public ScheduleBuilderUffaPoints(List<Constraint> allConstraints, List<Doctor> doctors, Schedule schedule) throws IllegalScheduleException {
         // Checks on the parameters state
         validateConstraints(allConstraints);
         validateSchedule(schedule);
@@ -168,6 +151,7 @@ public class UPScheduleBuilder {
         }
     }
 
+    @Override
     public Schedule build() {
         schedule.getViolatedConstraints().clear();
         schedule.setCauseIllegal(null);
@@ -246,7 +230,7 @@ public class UPScheduleBuilder {
             //TODO: aggiungere controllo specializzazione
             if (d.getDoctor().getSeniority() != qss.getKey())
                 continue;
-            UPContextConstraint context = new UPContextConstraint(d, concreteShift);
+            ContextConstraintUffaPoints context = new ContextConstraintUffaPoints(d, concreteShift);
             if (verifyAllConstraints(context, false)) {
                 doctorList.add(d.getDoctor());
                 d.addConcreteShift(context.getConcreteShift());
@@ -281,7 +265,7 @@ public class UPScheduleBuilder {
      * @param isForced Boolean that represents if it is possible to violate the soft constraints
      * @return True if there are no violations or the only verified violations are soft with isForced==true; false otherwise
      */
-    private boolean verifyAllConstraints(UPContextConstraint context, boolean isForced) {
+    private boolean verifyAllConstraints(ContextConstraintUffaPoints context, boolean isForced) {
 
         //This flag indicates if there has been a violation in the constraints.
         boolean isOk = true;
@@ -304,21 +288,14 @@ public class UPScheduleBuilder {
 
     }
 
-    /**
-     * This method add a concrete shift to the schedule manually. The concrete shift shall be already defined with
-     * date and doctors.
-     *
-     * @param concreteShift The concrete shift to be added to the schedule
-     * @param isForced      Boolean that represents if it is possible to violate the soft constraints with the new concrete shift
-     * @return An instance of the updated shift schedule
-     */
+    @Override
     public Schedule addConcreteShift(ConcreteShift concreteShift, boolean isForced) {
         schedule.getViolatedConstraints().clear();
         schedule.setCauseIllegal(null);
 
         for (DoctorAssignment da : concreteShift.getDoctorAssignmentList()) {
             Doctor doctor = da.getDoctor();
-            if (!verifyAllConstraints(new UPContextConstraint(this.allUserScheduleStates.get(doctor.getId()), concreteShift), isForced)) {
+            if (!verifyAllConstraints(new ContextConstraintUffaPoints(this.allUserScheduleStates.get(doctor.getId()), concreteShift), isForced)) {
                 schedule.setCauseIllegal(new IllegalAssegnazioneTurnoException("Un vincolo stringente è stato violato, oppure un vincolo non stringente è stato violato e non è stato richiesto di forzare l'assegnazione. Consultare il log delle violazioni della pianificazione può aiutare a investigare la causa."));
             }
         }

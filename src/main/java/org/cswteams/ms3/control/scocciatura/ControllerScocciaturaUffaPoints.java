@@ -11,12 +11,10 @@ import java.util.List;
 /**
  * Classe che gestisce tutti gli aspetti collegata alla metrica UFFA
  */
-public class UPControllerScocciatura {
-
-    public List<Scocciatura> scocciature;
+public class ControllerScocciaturaUffaPoints extends AbstractControllerScocciatura{
 
 
-    public UPControllerScocciatura(List<Scocciatura> scocciature) {
+    public ControllerScocciaturaUffaPoints(List<Scocciatura> scocciature) {
         this.scocciature = scocciature;
     }
 
@@ -61,6 +59,7 @@ public class UPControllerScocciatura {
      * @param contestoScocciatura
      * @return
      */
+    @Override
     public int calcolaUffaComplessivoUtenteAssegnazione(ContestoScocciatura contestoScocciatura){
         int uffa = 0;
 

@@ -15,14 +15,13 @@ import java.util.*;
 /**
  * This class manages all the aspects concerning the uffa prioriy levels.
  */
-public class ControllerScocciatura {
+public class ControllerScocciaturaPriority extends AbstractControllerScocciatura{
 
-    public List<Scocciatura> scocciature;   //why public!?
     private final int upperBound;
     private final int lowerBound;
 
 
-    public ControllerScocciatura(List<Scocciatura> scocciature) {
+    public ControllerScocciaturaPriority(List<Scocciatura> scocciature) {
         this.scocciature = scocciature;
 
         //we read upper bound and lower bound of priority levels from configuration file priority.properties
@@ -98,6 +97,7 @@ public class ControllerScocciatura {
      * @param contestoScocciatura Instance comprehending the useful information to calculate the right variation of uffa priority level
      * @return Total uffa priority variation due to the assignment to the concrete shift included in constestoScocciatura
      */
+    @Override
     public int calcolaUffaComplessivoUtenteAssegnazione(ContestoScocciatura contestoScocciatura){
         int uffa = 0;
 

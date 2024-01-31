@@ -3,11 +3,12 @@ package org.cswteams.ms3.control.scheduler;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cswteams.ms3.control.scocciatura.ControllerScocciatura;
+import org.cswteams.ms3.control.scocciatura.ControllerScocciaturaPriority;
+import org.cswteams.ms3.control.scocciatura.ControllerScocciaturaUffaPoints;
 import org.cswteams.ms3.control.utils.DoctorAssignmentUtil;
 import org.cswteams.ms3.entity.*;
 import org.cswteams.ms3.entity.constraint.Constraint;
-import org.cswteams.ms3.entity.constraint.ContextConstraint;
+import org.cswteams.ms3.entity.constraint.ContextConstraintPriority;
 import org.cswteams.ms3.enums.ConcreteShiftDoctorStatus;
 import org.cswteams.ms3.enums.PriorityQueueEnum;
 import org.cswteams.ms3.enums.Seniority;
@@ -25,17 +26,7 @@ import java.util.logging.Logger;
 
 @Getter
 @Setter
-public class ScheduleBuilder {
-
-
-    private final Logger logger = Logger.getLogger(ScheduleBuilder.class.getName());
-
-    /** List of constraints to be applied to each couple (ConcreteShift, User) */
-    @NotNull
-    private List<Constraint> allConstraints;
-
-    /** Shift schedule to be built */
-    private Schedule schedule;
+public class ScheduleBuilderPriority extends AbstractScheduleBuilder{
 
     /** All the holidays saved in the system */
     private List<Holiday> holidays;
@@ -46,9 +37,8 @@ public class ScheduleBuilder {
     /** All the information about priority levels on the queues of the doctors */
     private List<DoctorUffaPriority> allDoctorUffaPriority;
 
-    /** Instance of controllerScocciatura */
-    private ControllerScocciatura controllerScocciatura;
-
+    // TODO si può generalizzare? per ora no
+    private ControllerScocciaturaPriority controllerScocciatura;
 
     /**
      * This method validates date parameters passed to the schedule builder.
@@ -103,8 +93,8 @@ public class ScheduleBuilder {
      * @param doctors Set of doctors that can be added in the schedule
      * @throws IllegalScheduleException Exception thrown when there are some problems in the configuration parameters of the schedule
      */
-    public ScheduleBuilder(LocalDate startDate, LocalDate endDate, List<Constraint> allConstraints, List<ConcreteShift> allAssignedShifts, List<Doctor> doctors,
-                           List<Holiday> holidays, List<DoctorHolidays> doctorHolidaysList, List<DoctorUffaPriority> allDoctorUffaPriority) throws IllegalScheduleException {
+    public ScheduleBuilderPriority(LocalDate startDate, LocalDate endDate, List<Constraint> allConstraints, List<ConcreteShift> allAssignedShifts, List<Doctor> doctors,
+                                   List<Holiday> holidays, List<DoctorHolidays> doctorHolidaysList, List<DoctorUffaPriority> allDoctorUffaPriority) throws IllegalScheduleException {
 
         // Checks on the parameters state
         validateDates(startDate,endDate);
@@ -141,7 +131,7 @@ public class ScheduleBuilder {
      * @param schedule An existing schedule from which to start a new one
      * @throws IllegalScheduleException Exception thrown when there are some problems in the configuration parameters of the schedule
      */
-    public ScheduleBuilder(List<Constraint> allConstraints, List<DoctorUffaPriority> allDoctorUffaPriority, Schedule schedule) throws IllegalScheduleException {
+    public ScheduleBuilderPriority(List<Constraint> allConstraints, List<DoctorUffaPriority> allDoctorUffaPriority, Schedule schedule) throws IllegalScheduleException {
         // Checks on the parameters state
         validateConstraints(allConstraints);
         validateSchedule(schedule);
@@ -165,8 +155,7 @@ public class ScheduleBuilder {
         }
     }
 
-
-
+@Override
     public Schedule build(){
         schedule.getViolatedConstraints().clear();
         schedule.setCauseIllegal(null);
@@ -296,7 +285,7 @@ public class ScheduleBuilder {
             //find DoctorHolidays instance associated with doctor dup.getDoctor()
             DoctorHolidays dh = findDhByDoctor(dup.getDoctor());
 
-            ContextConstraint context = new ContextConstraint(dup, concreteShift, dh, holidays);
+            ContextConstraintPriority context = new ContextConstraintPriority(dup, concreteShift, dh, holidays);
             if(verifyAllConstraints(context, false)){
                 doctorList.add(dup.getDoctor());
                 dup.addConcreteShift(context.getConcreteShift());
@@ -417,7 +406,7 @@ public class ScheduleBuilder {
      * @param isForced Boolean that represents if it is possible to violate the soft constraints
      * @return True if there are no violations or the only verified violations are soft with isForced==true; false otherwise
      */
-    private boolean verifyAllConstraints(ContextConstraint context, boolean isForced){
+    private boolean verifyAllConstraints(ContextConstraintPriority context, boolean isForced){
 
         //This flag indicates if there has been a violation in the constraints.
         boolean isOk = true;
@@ -441,13 +430,7 @@ public class ScheduleBuilder {
 
     }
 
-    /**
-     * This method add a concrete shift to the schedule manually. The concrete shift shall be already defined with
-     * date and doctors.
-     * @param concreteShift The concrete shift to be added to the schedule
-     * @param isForced Boolean that represents if it is possible to violate the soft constraints with the new concrete shift
-     * @return An instance of the updated shift schedule
-     */
+    @Override
     public Schedule addConcreteShift(ConcreteShift concreteShift, boolean isForced){
 
         schedule.getViolatedConstraints().clear();
@@ -459,7 +442,7 @@ public class ScheduleBuilder {
             DoctorHolidays dh = findDhByDoctor(doctor);
             DoctorUffaPriority dup = this.findDupByDoctor(doctor);
 
-            if (!verifyAllConstraints(new ContextConstraint(dup, concreteShift, dh, holidays), isForced)){
+            if (!verifyAllConstraints(new ContextConstraintPriority(dup, concreteShift, dh, holidays), isForced)){
                 schedule.setCauseIllegal(new IllegalAssegnazioneTurnoException("Un vincolo stringente è stato violato, oppure un vincolo non stringente è stato violato e non è stato richiesto di forzare l'assegnazione. Consultare il log delle violazioni della pianificazione può aiutare a investigare la causa."));
             }
         }

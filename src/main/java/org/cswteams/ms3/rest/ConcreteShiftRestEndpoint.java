@@ -3,7 +3,7 @@ package org.cswteams.ms3.rest;
 import org.cswteams.ms3.control.concreteShift.IConcreteShiftController;
 import org.cswteams.ms3.control.scambioTurno.IControllerScambioTurno;
 import org.cswteams.ms3.control.scheduler.ISchedulerController;
-import org.cswteams.ms3.control.scheduler.UPSchedulerController;
+import org.cswteams.ms3.control.scheduler.SchedulerControllerUffaPoints;
 import org.cswteams.ms3.control.utils.RispostaViolazioneVincoli;
 import org.cswteams.ms3.dto.concreteshift.GetAllConcreteShiftDTO;
 import org.cswteams.ms3.dto.ModifyConcreteShiftDTO;
@@ -12,6 +12,8 @@ import org.cswteams.ms3.dto.concreteshift.GetAvailableUsersForReplacementDTO;
 import org.cswteams.ms3.dto.medicalDoctor.MedicalDoctorInfoDTO;
 import org.cswteams.ms3.entity.Schedule;
 import org.cswteams.ms3.entity.constraint.Constraint;
+import org.cswteams.ms3.entity.scheduling.SchedulerFactory;
+import org.cswteams.ms3.entity.scheduling.SchedulerType;
 import org.cswteams.ms3.exception.ConcreteShiftException;
 import org.cswteams.ms3.exception.IllegalScheduleException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,10 @@ public class ConcreteShiftRestEndpoint {
     private IConcreteShiftController concreteShiftController;
 
     // TODO sistemare una volta provato l'algoritmo
-    //@Autowired
-    //private ISchedulerController controllerScheduler;
-    private UPSchedulerController controllerScheduler;
+    //@Autowired -- NO! Ne ho due implementazioni, scelgo io a runtime quella che boglio
+    private ISchedulerController schedulerController;
+    //private SchedulerControllerUffaPoints schedulerController;
+
     @Autowired
     private IControllerScambioTurno controllerScambioTurno;
 
@@ -46,8 +49,10 @@ public class ConcreteShiftRestEndpoint {
         if (assegnazione != null) {
             // Se l'utente chiede l'aggiunta forzata di un assegnazione viene fatto
             // controllo solo sui vincoli non violabili
+            //TODO il parametro
+            schedulerController = this.getScheduler(SchedulerType.SCHEDULER_UFFAPRIORITY);
             try {
-                schedule = controllerScheduler.addConcreteShift(assegnazione, assegnazione.isForced());
+                schedule = schedulerController.addConcreteShift(assegnazione, assegnazione.isForced());
             } catch (ConcreteShiftException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             } catch (IllegalScheduleException e) {
@@ -107,8 +112,10 @@ public class ConcreteShiftRestEndpoint {
 
         //Chiedo al controller di modificare e salvare nel database l'assegnazione turno modificata
         Schedule schedule;
+        //TODO il parametro
+        schedulerController = this.getScheduler(SchedulerType.SCHEDULER_UFFAPRIORITY);
         try {
-            schedule = controllerScheduler.modifyConcreteShift(modifyConcreteShiftDTO);
+            schedule = schedulerController.modifyConcreteShift(modifyConcreteShiftDTO);
         } catch (IllegalScheduleException e) {
             schedule=null;
         }
@@ -135,7 +142,9 @@ public class ConcreteShiftRestEndpoint {
     @RequestMapping(method = RequestMethod.DELETE, path = "/{idAssegnazione}")
     public ResponseEntity<?> deleteConcreteShift(@PathVariable Long idAssegnazione)  {
         if (idAssegnazione != null) {
-            if(controllerScheduler.removeConcreteShift(idAssegnazione)){
+            //TODO il parametro
+            schedulerController = this.getScheduler(SchedulerType.SCHEDULER_UFFAPRIORITY);
+            if(schedulerController.removeConcreteShift(idAssegnazione)){
                 return new ResponseEntity<>(HttpStatus.ACCEPTED);
             }
         }
@@ -149,5 +158,9 @@ public class ConcreteShiftRestEndpoint {
         return new ResponseEntity<>(returnList, HttpStatus.FOUND);
     }
 
+    private ISchedulerController getScheduler(SchedulerType schedulerType) {
+        SchedulerFactory schedulerFactory = new SchedulerFactory();
+        return schedulerFactory.createScheduler(schedulerType);
+    }
 
 }

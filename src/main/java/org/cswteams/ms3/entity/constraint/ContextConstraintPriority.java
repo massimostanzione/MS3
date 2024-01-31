@@ -13,7 +13,7 @@ import java.util.List;
  * Context for <i>constraints</i> validation.
  */
 @Data
-public class ContextConstraint implements IContextConstraint {
+public class ContextConstraintPriority implements IContextConstraint {
 
     @NotNull
     private DoctorUffaPriority doctorUffaPriority;
@@ -25,7 +25,7 @@ public class ContextConstraint implements IContextConstraint {
 
     private List<Holiday> holidays;
 
-    public ContextConstraint(DoctorUffaPriority doctorUffaPriority, ConcreteShift concreteShift, DoctorHolidays doctorHolidays, List<Holiday> holidays){
+    public ContextConstraintPriority(DoctorUffaPriority doctorUffaPriority, ConcreteShift concreteShift, DoctorHolidays doctorHolidays, List<Holiday> holidays){
         this.concreteShift = concreteShift;
         this.doctorUffaPriority = doctorUffaPriority;
         this.doctorHolidays = doctorHolidays;
