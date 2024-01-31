@@ -19,7 +19,7 @@ public class QuantityShiftSeniority {
     private Long id;
 
     /**
-     * User role.
+     * User seniorities.
      * The integer value represents the number of <i>Users</i> of a specific <i>Seniority</i> to be allocated to a specific <i>Shift</i>.
      */
     @Lob
