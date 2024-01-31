@@ -29,7 +29,7 @@ public class QuantityShiftSeniority {
     private Task task;
 
     /**
-     * Create a <code>QuantitiShiftSeniority</code> object with the specified parameters.
+     * Create a <code>QuantityShiftSeniority</code> object with the specified parameters.
      *
      * @param id        association id
      * @param seniority <i>seniority</i> level required
@@ -42,7 +42,7 @@ public class QuantityShiftSeniority {
     }
 
     /**
-     * Create a <code>QuantitiShiftSeniority</code> object with the specified parameters.
+     * Create a <code>QuantityShiftSeniority</code> object with the specified parameters.
      * @param seniority <i>seniority</i> level required
      * @param task <i>task</i> to be assigned
      */
