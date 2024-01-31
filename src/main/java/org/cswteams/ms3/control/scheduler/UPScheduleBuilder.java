@@ -3,7 +3,6 @@ package org.cswteams.ms3.control.scheduler;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cswteams.ms3.control.scocciatura.ControllerScocciatura;
 import org.cswteams.ms3.control.scocciatura.UPControllerScocciatura;
 import org.cswteams.ms3.control.utils.DoctorAssignmentUtil;
 import org.cswteams.ms3.entity.*;
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
 
 @Getter
 @Setter
-public class UffaPointsScheduleBuilder {
+public class UPScheduleBuilder {
 
 
     private final Logger logger = Logger.getLogger(ScheduleBuilder.class.getName());
@@ -109,7 +108,7 @@ public class UffaPointsScheduleBuilder {
      * @param doctors           Set of doctors that can be added in the schedule
      * @throws IllegalScheduleException Exception thrown when there are some problems in the configuration parameters of the schedule
      */
-    public UffaPointsScheduleBuilder(LocalDate startDate, LocalDate endDate, List<Constraint> allConstraints, List<ConcreteShift> allAssignedShifts, List<Doctor> doctors) throws IllegalScheduleException {
+    public UPScheduleBuilder(LocalDate startDate, LocalDate endDate, List<Constraint> allConstraints, List<ConcreteShift> allAssignedShifts, List<Doctor> doctors) throws IllegalScheduleException {
         // Checks on the parameters state
 
         validateDates(startDate, endDate);
@@ -144,7 +143,7 @@ public class UffaPointsScheduleBuilder {
      * @param schedule       An existing schedule from which to start a new one
      * @throws IllegalScheduleException Exception thrown when there are some problems in the configuration parameters of the schedule
      */
-    public UffaPointsScheduleBuilder(List<Constraint> allConstraints, List<Doctor> doctors, Schedule schedule) throws IllegalScheduleException {
+    public UPScheduleBuilder(List<Constraint> allConstraints, List<Doctor> doctors, Schedule schedule) throws IllegalScheduleException {
         // Checks on the parameters state
         validateConstraints(allConstraints);
         validateSchedule(schedule);

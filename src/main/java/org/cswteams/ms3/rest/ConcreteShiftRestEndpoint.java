@@ -3,6 +3,7 @@ package org.cswteams.ms3.rest;
 import org.cswteams.ms3.control.concreteShift.IConcreteShiftController;
 import org.cswteams.ms3.control.scambioTurno.IControllerScambioTurno;
 import org.cswteams.ms3.control.scheduler.ISchedulerController;
+import org.cswteams.ms3.control.scheduler.UPSchedulerController;
 import org.cswteams.ms3.control.utils.RispostaViolazioneVincoli;
 import org.cswteams.ms3.dto.concreteshift.GetAllConcreteShiftDTO;
 import org.cswteams.ms3.dto.ModifyConcreteShiftDTO;
@@ -30,9 +31,10 @@ public class ConcreteShiftRestEndpoint {
     @Autowired
     private IConcreteShiftController concreteShiftController;
 
-    @Autowired
-    private ISchedulerController controllerScheduler;
-
+    // TODO sistemare una volta provato l'algoritmo
+    //@Autowired
+    //private ISchedulerController controllerScheduler;
+    private UPSchedulerController controllerScheduler;
     @Autowired
     private IControllerScambioTurno controllerScambioTurno;
 

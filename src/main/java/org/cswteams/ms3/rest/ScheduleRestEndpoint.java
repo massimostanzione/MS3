@@ -1,6 +1,7 @@
 package org.cswteams.ms3.rest;
 
 import org.cswteams.ms3.control.scheduler.ISchedulerController;
+import org.cswteams.ms3.control.scheduler.UPSchedulerController;
 import org.cswteams.ms3.dto.ScheduleGenerationDTO;
 import org.cswteams.ms3.dto.ScheduleDTO;
 import org.cswteams.ms3.dto.showscheduletoplanner.ShowScheduleToPlannerDTO;
@@ -19,7 +20,10 @@ import java.util.Set;
 public class ScheduleRestEndpoint {
 
     @Autowired
-    private ISchedulerController schedulerController;
+    // TODO sistemare una volta provato l'algoritmo
+    //@Autowired
+    //private ISchedulerController schedulerController;
+    private UPSchedulerController schedulerController;
 
     /*
      * This method is invoked by the frontend to request a new shift schedule in the range of
