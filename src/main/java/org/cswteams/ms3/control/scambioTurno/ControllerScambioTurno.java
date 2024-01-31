@@ -263,7 +263,6 @@ public class ControllerScambioTurno implements IControllerScambioTurno {
     public List<MedicalDoctorInfoDTO> getAvailableUsersForReplacement(@NotNull GetAvailableUsersForReplacementDTO dto) {
         List<MedicalDoctorInfoDTO> availableDoctorsDTOs = new ArrayList<>();
         Seniority requestingUserSeniority = dto.getSeniority();
-        System.out.println("ciao");
         Optional<ConcreteShift> concreteShift = concreteShiftDAO.findById(dto.getShiftId());
         if (concreteShift.isEmpty()) {
             return null;
