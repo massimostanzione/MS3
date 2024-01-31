@@ -13,12 +13,12 @@ public class ConstraintUbiquita extends ConstraintAssegnazioneTurnoTurno {
 
     /**
      * This method checks if Ubiquita constraint is respected while inserting a new concrete shift into a schedule.
-     * @param context Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
+     * @param context1 Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
      * @throws ViolatedConstraintException Exception thrown if the constraint is violated
      */
     @Override
-    public void verifyConstraint(ContextConstraint context) throws ViolatedConstraintException {
-
+    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+        ContextConstraint context=(ContextConstraint)context1; //FIXME
         if(!context.getDoctorUffaPriority().getAssegnazioniTurnoCache().isEmpty()){
             for(ConcreteShift assignedConcreteShift: context.getDoctorUffaPriority().getAssegnazioniTurnoCache()){
                 LocalDate dateStartA = LocalDate.ofEpochDay(assignedConcreteShift.getDate());   //conversion Epoch -> LocalDate of assignedConcreteShift.getDate()

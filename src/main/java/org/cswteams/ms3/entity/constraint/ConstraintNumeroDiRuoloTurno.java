@@ -26,12 +26,12 @@ public class ConstraintNumeroDiRuoloTurno extends Constraint {
 
     /**
      * This method checks if numeroDiRuoloTurno constraint is respected while inserting a new concrete shift into a schedule.
-     * @param context Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
+     * @param context1 Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
      * @throws ViolatedConstraintException Exception thrown if the constraint is violated
      */
     @Override
-    public void verifyConstraint(ContextConstraint context) throws ViolatedConstraintException {
-
+    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+        ContextConstraint context=(ContextConstraint)context1; //FIXME
         //Verifico se sono stati allocati già tutti gli utenti necessari in guardia
         if (DoctorAssignmentUtil.getDoctorsInConcreteShift(context.getConcreteShift(), Collections.singletonList(ConcreteShiftDoctorStatus.ON_DUTY)).size() != ShiftUtil.getNumRequiredDoctors(context.getConcreteShift().getShift())) {
             //Verifico se è possibile aggiungere l'utente in guardia

@@ -60,12 +60,13 @@ public class ConstraintTurniContigui extends ConstraintAssegnazioneTurnoTurno {
 
     /**
      * This method checks if TipologieTurniContigue constraint is respected while inserting a new concrete shift into a schedule.
-     * @param context Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
+     * @param context1 Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
      * @throws ViolatedConstraintException Exception thrown if the constraint is violated
      */
     @Override
-    public void verifyConstraint(ContextConstraint context) throws ViolatedConstraintException {
-                
+    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+
+        ContextConstraint context=(ContextConstraint)context1; //FIXME
         // We check if the shift to be allocated is of the type that must be excluded the constraint
         if (forbiddenTimeSlots.contains(context.getConcreteShift().getShift().getTimeSlot())){
             

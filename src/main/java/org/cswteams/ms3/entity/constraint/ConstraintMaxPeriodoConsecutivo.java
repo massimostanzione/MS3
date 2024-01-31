@@ -46,12 +46,13 @@ public class ConstraintMaxPeriodoConsecutivo extends ConstraintAssegnazioneTurno
     /**
      * This method checks if maxPeriodoConsecutivo constraint is respected while inserting a new concrete shift into a schedule.
      *
-     * @param context Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
+     * @param context1 Object comprehending the new concrete shift to be assigned and the information about doctor's state in the corresponding schedule
      * @throws ViolatedConstraintException Exception thrown if the constraint is violated
      * @see ConstraintMaxPeriodoConsecutivo
      */
     @Override
-    public void verifyConstraint(ContextConstraint context) throws ViolatedConstraintException {
+    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+        ContextConstraint context=(ContextConstraint)context1; //FIXME
         if(context.getDoctorUffaPriority().getAssegnazioniTurnoCache().size() != 0 && verificaAppartenenzaCategoria(context)) {
             List<ConcreteShift> assignedConcreteShifts = context.getDoctorUffaPriority().getAssegnazioniTurnoCache();
             List<ConcreteShift> consecConcreteShifts = new ArrayList<>();
