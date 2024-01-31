@@ -179,9 +179,12 @@ public class UffaPointsScheduleBuilder {
                 //Questa linea va rivalutata in seguito
                 List<Doctor> doctorsOnDuty = DoctorAssignmentUtil.getDoctorsInConcreteShift(concreteShift, Collections.singletonList(ConcreteShiftDoctorStatus.ON_DUTY));
                 int count = 0;
-                for (Map.Entry<Seniority, Integer> qss : concreteShift.getShift().getQuantityShiftSeniority().entrySet()) {
-                    count += qss.getValue();
-                    this.addDoctors(concreteShift, qss, doctorsOnDuty, ConcreteShiftDoctorStatus.ON_CALL, count);
+                for (QuantityShiftSeniority qss : concreteShift.getShift().getQuantityShiftSeniority()) {
+                    for (Map.Entry<Seniority, Integer> qssEntry : qss.getSeniorityMap().entrySet()) {
+                        count += qssEntry.getValue();
+                        // TODO mismatch onDuty/ON_CALL - giusto così?
+                        this.addDoctors(concreteShift, qssEntry, doctorsOnDuty, ConcreteShiftDoctorStatus.ON_CALL, count);
+                    }
                 }
                 if (concreteShift.getShift().getMedicalService().getTasks().size() > count) {
                     throw new NotEnoughFeasibleUsersException(concreteShift.getShift().getMedicalService().getTasks().size(), count);
@@ -202,9 +205,12 @@ public class UffaPointsScheduleBuilder {
             try {
                 List<Doctor> doctorsOnCall = DoctorAssignmentUtil.getDoctorsInConcreteShift(concreteShift, Collections.singletonList(ConcreteShiftDoctorStatus.ON_CALL));
                 int count = 0;
-                for (Map.Entry<Seniority, Integer> qss : concreteShift.getShift().getQuantityShiftSeniority().entrySet()) {
-                    count += qss.getValue();
-                    this.addDoctors(concreteShift, qss, doctorsOnCall, ConcreteShiftDoctorStatus.ON_DUTY, count);
+                for (QuantityShiftSeniority qss : concreteShift.getShift().getQuantityShiftSeniority()) {
+                    for (Map.Entry<Seniority, Integer> qssEntry : qss.getSeniorityMap().entrySet()) {
+                        count += qssEntry.getValue();
+                        // TODO mismatch onDuty/ON_CALL - giusto così?
+                        this.addDoctors(concreteShift, qssEntry, doctorsOnCall, ConcreteShiftDoctorStatus.ON_DUTY, count);
+                    }
                 }
 
             } catch (NotEnoughFeasibleUsersException e) {

@@ -63,6 +63,7 @@ public class Shift {
 
     /**
      * <i>Doctors</i> required for this shift, grouped by <i>seniority</i>.
+     * TODO non basta un solo elemento invece di una lista?
      */
     @OneToMany(cascade = CascadeType.ALL)
     private List<QuantityShiftSeniority> quantityShiftSeniority;
@@ -129,6 +130,7 @@ public class Shift {
 
     /**
      * Check the correctness of the <i>Doctor</i>/<i>seniority</i> <i>shift</i> association.
+     *
      * @return
      */
     private boolean verifyCorrectnessQuantityShiftSeniority() {
