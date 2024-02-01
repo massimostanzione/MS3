@@ -7,7 +7,7 @@ import org.cswteams.ms3.control.scocciatura.ControllerScocciaturaPriority;
 import org.cswteams.ms3.control.utils.DoctorAssignmentUtil;
 import org.cswteams.ms3.entity.*;
 import org.cswteams.ms3.entity.constraint.Constraint;
-import org.cswteams.ms3.entity.constraint.ContextConstraintPriority;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraintPriority;
 import org.cswteams.ms3.enums.ConcreteShiftDoctorStatus;
 import org.cswteams.ms3.enums.PriorityQueueEnum;
 import org.cswteams.ms3.enums.Seniority;

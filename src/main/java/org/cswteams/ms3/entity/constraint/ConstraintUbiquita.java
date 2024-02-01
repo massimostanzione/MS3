@@ -1,6 +1,7 @@
 package org.cswteams.ms3.entity.constraint;
 
 import org.cswteams.ms3.entity.ConcreteShift;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraint;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
 import org.cswteams.ms3.exception.ViolatedVincoloAssegnazioneTurnoTurnoException;
 
@@ -17,7 +18,7 @@ public class ConstraintUbiquita extends ConstraintAssegnazioneTurnoTurno {
      * @throws ViolatedConstraintException Exception thrown if the constraint is violated
      */
     @Override
-    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+    public void verifyConstraint(ContextConstraint context1) throws ViolatedConstraintException {
         ContextConstraint context=(ContextConstraint)context1; //FIXME
         if(!context.getDoctorUffaPriority().getAssegnazioniTurnoCache().isEmpty()){
             for(ConcreteShift assignedConcreteShift: context.getDoctorUffaPriority().getAssegnazioniTurnoCache()){

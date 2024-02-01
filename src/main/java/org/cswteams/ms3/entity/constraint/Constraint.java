@@ -2,6 +2,7 @@ package org.cswteams.ms3.entity.constraint;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraint;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
 
 import javax.persistence.*;
@@ -43,5 +44,5 @@ public abstract class Constraint {
      *
      * @throws ViolatedConstraintException if the <i>constraint</i> is violated.
      */
-    public abstract void verifyConstraint(IContextConstraint contesto) throws ViolatedConstraintException;
+    public abstract void verifyConstraint(ContextConstraint contesto) throws ViolatedConstraintException;
 }

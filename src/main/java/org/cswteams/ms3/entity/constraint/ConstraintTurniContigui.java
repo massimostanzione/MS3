@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.cswteams.ms3.entity.ConcreteShift;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraint;
 import org.cswteams.ms3.enums.TimeSlot;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
 import org.cswteams.ms3.exception.ViolatedVincoloAssegnazioneTurnoTurnoException;
@@ -64,7 +65,7 @@ public class ConstraintTurniContigui extends ConstraintAssegnazioneTurnoTurno {
      * @throws ViolatedConstraintException Exception thrown if the constraint is violated
      */
     @Override
-    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+    public void verifyConstraint(ContextConstraint context1) throws ViolatedConstraintException {
 
         ContextConstraint context=(ContextConstraint)context1; //FIXME
         // We check if the shift to be allocated is of the type that must be excluded the constraint

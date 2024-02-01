@@ -1,9 +1,9 @@
 package org.cswteams.ms3.entity.constraint;
 
-import net.bytebuddy.matcher.CollectionOneToOneMatcher;
 import org.cswteams.ms3.entity.ConcreteShift;
 import org.cswteams.ms3.entity.Doctor;
 import org.cswteams.ms3.entity.Holiday;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraint;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
 import org.cswteams.ms3.exception.ViolatedConstraintHolidayException;
 
@@ -17,7 +17,7 @@ import javax.persistence.Entity;
 public class ConstraintHoliday extends Constraint {
 
     @Override
-    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+    public void verifyConstraint(ContextConstraint context1) throws ViolatedConstraintException {
         ContextConstraint context=(ContextConstraint)context1; //FIXME
         Doctor doctor = context.getDoctorUffaPriority().getDoctor();
         ConcreteShift concreteShift = context.getConcreteShift();

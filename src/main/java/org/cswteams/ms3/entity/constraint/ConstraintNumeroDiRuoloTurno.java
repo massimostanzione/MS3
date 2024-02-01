@@ -4,6 +4,7 @@ import org.cswteams.ms3.control.utils.DoctorAssignmentUtil;
 import org.cswteams.ms3.control.utils.ShiftUtil;
 import org.cswteams.ms3.entity.Doctor;
 import org.cswteams.ms3.entity.QuantityShiftSeniority;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraint;
 import org.cswteams.ms3.enums.ConcreteShiftDoctorStatus;
 import org.cswteams.ms3.enums.Seniority;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
@@ -30,7 +31,7 @@ public class ConstraintNumeroDiRuoloTurno extends Constraint {
      * @throws ViolatedConstraintException Exception thrown if the constraint is violated
      */
     @Override
-    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+    public void verifyConstraint(ContextConstraint context1) throws ViolatedConstraintException {
         ContextConstraint context=(ContextConstraint)context1; //FIXME
         //Verifico se sono stati allocati già tutti gli utenti necessari in guardia
         if (DoctorAssignmentUtil.getDoctorsInConcreteShift(context.getConcreteShift(), Collections.singletonList(ConcreteShiftDoctorStatus.ON_DUTY)).size() != ShiftUtil.getNumRequiredDoctors(context.getConcreteShift().getShift())) {

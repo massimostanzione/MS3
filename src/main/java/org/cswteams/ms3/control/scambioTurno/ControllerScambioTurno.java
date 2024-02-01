@@ -11,7 +11,7 @@ import org.cswteams.ms3.entity.*;
 import org.cswteams.ms3.entity.constraint.ConstraintHoliday;
 import org.cswteams.ms3.entity.constraint.ConstraintMaxPeriodoConsecutivo;
 import org.cswteams.ms3.entity.constraint.ConstraintUbiquita;
-import org.cswteams.ms3.entity.constraint.ContextConstraintPriority;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraintPriority;
 import org.cswteams.ms3.enums.ConcreteShiftDoctorStatus;
 import org.cswteams.ms3.enums.RequestStatus;
 import org.cswteams.ms3.enums.Seniority;

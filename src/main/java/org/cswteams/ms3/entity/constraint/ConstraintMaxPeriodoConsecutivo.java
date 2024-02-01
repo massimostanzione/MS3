@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.cswteams.ms3.entity.ConcreteShift;
 import org.cswteams.ms3.entity.condition.Condition;
+import org.cswteams.ms3.entity.constraint.context.ContextConstraint;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
 import org.cswteams.ms3.exception.ViolatedVincoloAssegnazioneTurnoTurnoException;
 
@@ -51,7 +52,7 @@ public class ConstraintMaxPeriodoConsecutivo extends ConstraintAssegnazioneTurno
      * @see ConstraintMaxPeriodoConsecutivo
      */
     @Override
-    public void verifyConstraint(IContextConstraint context1) throws ViolatedConstraintException {
+    public void verifyConstraint(ContextConstraint context1) throws ViolatedConstraintException {
         ContextConstraint context=(ContextConstraint)context1; //FIXME
         if(context.getDoctorUffaPriority().getAssegnazioniTurnoCache().size() != 0 && verificaAppartenenzaCategoria(context)) {
             List<ConcreteShift> assignedConcreteShifts = context.getDoctorUffaPriority().getAssegnazioniTurnoCache();

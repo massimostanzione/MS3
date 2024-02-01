@@ -1,4 +1,4 @@
-package org.cswteams.ms3.entity.constraint;
+package org.cswteams.ms3.entity.constraint.context;
 
 import lombok.Data;
 import org.cswteams.ms3.entity.ConcreteShift;
@@ -12,18 +12,9 @@ import java.util.List;
 /**
  * Context for <i>constraints</i> validation.
  */
-@Data
-public class ContextConstraintPriority implements IContextConstraint {
+public class ContextConstraintPriority extends ContextConstraint {
 
-    @NotNull
-    private DoctorUffaPriority doctorUffaPriority;
 
-    @NotNull
-    private ConcreteShift concreteShift;
-
-    private DoctorHolidays doctorHolidays;
-
-    private List<Holiday> holidays;
 
     public ContextConstraintPriority(DoctorUffaPriority doctorUffaPriority, ConcreteShift concreteShift, DoctorHolidays doctorHolidays, List<Holiday> holidays){
         this.concreteShift = concreteShift;
