@@ -1,4 +1,4 @@
-package org.cswteams.ms3.entity.scheduling;
+package org.cswteams.ms3.entity.scheduling.algo;
 //TODO generalizzare con DoctorUffaPriority
 
 import java.util.ArrayList;
@@ -6,16 +6,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.cswteams.ms3.entity.ConcreteShift;
 import org.cswteams.ms3.entity.DoctorAssignment;
 import org.cswteams.ms3.entity.Schedule;
 import org.cswteams.ms3.entity.Doctor;
 
-@Entity
-@Getter
-@Setter
 /*
 TODO: Check why there is this constraint
 @Table(uniqueConstraints={
@@ -25,23 +20,7 @@ TODO: Check why there is this constraint
     })
 })
 */
-public class DoctorScheduleState {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    /**
-     * Utente a cui appartiene questo stato
-     */
-    @ManyToOne
-    private Doctor doctor;
-
-    /**
-     * Pianificazione a cui appartiene questo stato
-     */
-    @OneToOne
-    private Schedule schedule;
+public class DoctorScheduleState extends SchedulingAlgorithmCharacterizingElement {
 
     private int uffaParziale = 0;
     private int uffaCumulativo = 0;

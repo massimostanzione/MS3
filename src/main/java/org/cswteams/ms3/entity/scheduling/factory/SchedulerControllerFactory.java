@@ -1,4 +1,4 @@
-package org.cswteams.ms3.entity.scheduling;
+package org.cswteams.ms3.entity.scheduling.factory;
 
 import org.cswteams.ms3.control.scheduler.ISchedulerController;
 import org.cswteams.ms3.control.scheduler.SchedulerControllerPriority;

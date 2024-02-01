@@ -1,4 +1,4 @@
-package org.cswteams.ms3.entity.scheduling;
+package org.cswteams.ms3.entity.scheduling.factory;
 
 /**
  * Todo

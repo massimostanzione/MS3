@@ -1,7 +1,7 @@
 package org.cswteams.ms3.control.scocciatura;
 // TODO generalizzare con ControllerScocciatura
 import org.cswteams.ms3.entity.ConcreteShift;
-import org.cswteams.ms3.entity.scheduling.DoctorScheduleState;
+import org.cswteams.ms3.entity.scheduling.algo.DoctorScheduleState;
 import org.cswteams.ms3.entity.scocciature.ContestoScocciatura;
 import org.cswteams.ms3.entity.scocciature.Scocciatura;
 

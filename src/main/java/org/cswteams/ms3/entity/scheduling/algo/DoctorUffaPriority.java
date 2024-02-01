@@ -1,5 +1,9 @@
-package org.cswteams.ms3.entity;
+package org.cswteams.ms3.entity.scheduling.algo;
 
+import org.cswteams.ms3.entity.ConcreteShift;
+import org.cswteams.ms3.entity.Doctor;
+import org.cswteams.ms3.entity.DoctorAssignment;
+import org.cswteams.ms3.entity.Schedule;
 import org.cswteams.ms3.enums.PriorityQueueEnum;
 
 import java.lang.Math;
@@ -27,20 +31,7 @@ TODO: Check why there is this constraint
     })
 })
 */
-public class DoctorUffaPriority {
-    
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    /** Doctor which the Uffa priority refers to */
-    @OneToOne
-    @NotNull
-    private Doctor doctor;
-
-    /** Current schedule */
-    @OneToOne
-    private Schedule schedule;
+public class DoctorUffaPriority extends SchedulingAlgorithmCharacterizingElement{
 
     private int partialGeneralPriority = 0;
     private int generalPriority = 0;
