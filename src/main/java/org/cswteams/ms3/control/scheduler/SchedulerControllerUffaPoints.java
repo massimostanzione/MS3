@@ -28,9 +28,8 @@ import javax.transaction.Transactional;
 
 // TODO: Generate concrete shift controller from this class
 @Service
-public class SchedulerControllerUffaPoints extends AbstractSchedulerController {
+public class SchedulerControllerUffaPoints implements ISchedulerController {
 
-    //TODO generalizzare?
 
     @Autowired
     private DoctorDAO doctorDAO;
@@ -53,6 +52,8 @@ public class SchedulerControllerUffaPoints extends AbstractSchedulerController {
     @Autowired
     private ScocciaturaDAO scocciaturaDAO;
 
+    private ScheduleBuilderUffaPoints scheduleBuilder;
+
     @Override
     public Set<ShowScheduleToPlannerDTO> getAllSchedulesWithDates(){
         Set<ShowScheduleToPlannerDTO> showScheduleToPlannerDTOSet = new HashSet<>();
@@ -70,19 +71,6 @@ public class SchedulerControllerUffaPoints extends AbstractSchedulerController {
         return showScheduleToPlannerDTOSet;
 
     }
-
-    /** FIXME!!!!!!!!!!!!!!!!!!!!!
-     *
-     * @param startDate starting day of the schedule validity
-     * @param endDate   end day (inclusive) of the validity of the schedule
-     * @param doctorUffaPriorityList
-     * @return
-     */
-    @Override
-    public Schedule createSchedule(LocalDate startDate, LocalDate endDate, List<DoctorUffaPriority> doctorUffaPriorityList) {
-        return null;
-    }
-
 
     /**
      * This method creates a new shift schedule by specifying start date and end date.
@@ -181,7 +169,7 @@ public class SchedulerControllerUffaPoints extends AbstractSchedulerController {
         Schedule schedule;
 
         //We create a new builder passing him as parameter an existing shift schedule.
-        this.scheduleBuilder = new ScheduleBuilderUffaPoints( //TODO generalizzare
+        this.scheduleBuilder = new ScheduleBuilderUffaPoints(
                 constraintDAO.findAll(),    //All the constraints that shall be respected when a doctor is assigned to a concrete shift
                 doctorDAO.findAll(),        //All the possible doctors that can be assigned to the concrete shifts
                 scheduleDAO.findByDateBetween(concreteShift.getDate())  //Existing shift schedule

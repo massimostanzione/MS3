@@ -27,7 +27,7 @@ import javax.transaction.Transactional;
 
 // TODO: Generate concrete shift controller from this class
 @Service
-public class SchedulerControllerPriority extends  AbstractSchedulerController{
+public class SchedulerControllerPriority implements ISchedulerController{
 
     @Autowired
     private DoctorDAO doctorDAO;
@@ -59,6 +59,7 @@ public class SchedulerControllerPriority extends  AbstractSchedulerController{
     @Autowired
     private DoctorUffaPriorityDAO doctorUffaPriorityDAO;
 
+    private ScheduleBuilderPriority scheduleBuilder;
 
 
     @Override
@@ -88,7 +89,13 @@ public class SchedulerControllerPriority extends  AbstractSchedulerController{
     }
 
 
-    @Override
+    /**
+     * Creates a schedule valid for the specified period and saves it in the DB.
+     *
+     * @param startDate starting day of the schedule validity
+     * @param endDate   end day (inclusive) of the validity of the schedule
+     * @return the created schedule
+     */
     @Transactional
     public Schedule createSchedule(LocalDate startDate, LocalDate endDate, List<DoctorUffaPriority> doctorUffaPriorityList)  {
 

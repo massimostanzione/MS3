@@ -24,15 +24,6 @@ public interface ISchedulerController {
     Set<ShowScheduleToPlannerDTO> getAllSchedulesWithDates();
 
     /**
-     * Creates a schedule valid for the specified period and saves it in the DB.
-     *
-     * @param startDate starting day of the schedule validity
-     * @param endDate   end day (inclusive) of the validity of the schedule
-     * @return the created schedule
-     */
-    Schedule createSchedule(LocalDate startDate, LocalDate endDate, List<DoctorUffaPriority> doctorUffaPriorityList);
-
-    /**
      * Proxy of the method createSchedule, when the DoctorUffaPriority list cannot be retrieved.
      * This method creates a new shift schedule by specifying start date and end date.
      *
