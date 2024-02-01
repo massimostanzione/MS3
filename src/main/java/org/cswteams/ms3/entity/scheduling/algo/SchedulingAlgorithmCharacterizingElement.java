@@ -7,6 +7,7 @@ import org.cswteams.ms3.entity.Doctor;
 import org.cswteams.ms3.entity.Schedule;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,4 +31,9 @@ public abstract class SchedulingAlgorithmCharacterizingElement {
     @OneToOne
     protected Schedule schedule;
 
+    /** All the concrete shifts assigned to the doctor in the current schedule */
+    @Transient
+    List<ConcreteShift> assegnazioniTurnoCache;
+
+    public abstract List<ConcreteShift> getAssegnazioniTurnoCache();
 }

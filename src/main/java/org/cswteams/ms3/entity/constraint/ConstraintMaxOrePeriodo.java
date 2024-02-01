@@ -52,12 +52,12 @@ public class ConstraintMaxOrePeriodo extends ConstraintAssegnazioneTurnoTurno {
     public void verifyConstraint(ContextConstraint context1) throws ViolatedConstraintException {
 
         ContextConstraint context=(ContextConstraint)context1; //FIXME
-        List<ConcreteShift> concreteShiftList = context.getDoctorUffaPriority().getAssegnazioniTurnoCache();
+        List<ConcreteShift> concreteShiftList = context.getSchedulingAlgorithmCharacterizingElement().getAssegnazioniTurnoCache();
         if(concreteShiftList != null && !concreteShiftList.isEmpty()) {
             //We find the bounds of the period to be considered in the schedule in which there is the new concrete shift to be assigned.
-            long startPeriodDate = context.getDoctorUffaPriority().getSchedule().getStartDate();
+            long startPeriodDate = context.getSchedulingAlgorithmCharacterizingElement().getSchedule().getStartDate();
             long endPeriodDate = startPeriodDate + periodDuration;
-            while(endPeriodDate < context.getDoctorUffaPriority().getSchedule().getEndDate()){
+            while(endPeriodDate < context.getSchedulingAlgorithmCharacterizingElement().getSchedule().getEndDate()){
                 if(context.getConcreteShift().getDate() < endPeriodDate && (context.getConcreteShift().getDate() > startPeriodDate || context.getConcreteShift().getDate() == startPeriodDate)){
                     break;
                 }
@@ -71,7 +71,7 @@ public class ConstraintMaxOrePeriodo extends ConstraintAssegnazioneTurnoTurno {
                 if(concreteShift.getDate() < endPeriodDate && (concreteShift.getDate() > startPeriodDate || concreteShift.getDate() == startPeriodDate)){
                     totalMinutes += concreteShift.getShift().getDuration().toMinutes();
                     if(totalMinutes > periodMaxTime){
-                        throw new ViolatedVincoloAssegnazioneTurnoTurnoException(context.getConcreteShift(), context.getDoctorUffaPriority().getDoctor(), periodDuration, periodMaxTime);
+                        throw new ViolatedVincoloAssegnazioneTurnoTurnoException(context.getConcreteShift(), context.getSchedulingAlgorithmCharacterizingElement().getDoctor(), periodDuration, periodMaxTime);
                     }
                 }
             }

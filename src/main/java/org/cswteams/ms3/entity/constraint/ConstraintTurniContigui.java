@@ -72,11 +72,11 @@ public class ConstraintTurniContigui extends ConstraintAssegnazioneTurnoTurno {
         if (forbiddenTimeSlots.contains(context.getConcreteShift().getShift().getTimeSlot())){
             
             // We search for another allocated shift of the same user in the horizon
-            List<ConcreteShift> concreteShiftList = context.getDoctorUffaPriority().getAssegnazioniTurnoCache();
+            List<ConcreteShift> concreteShiftList = context.getSchedulingAlgorithmCharacterizingElement().getAssegnazioniTurnoCache();
             for (ConcreteShift concreteShift : concreteShiftList) {
                 if (concreteShift.getShift().getTimeSlot() == timeSlot
                         && verificaContiguitàAssegnazioneTurni(concreteShift, context.getConcreteShift(), tUnit, horizon)) {
-                    throw new ViolatedVincoloAssegnazioneTurnoTurnoException(concreteShift, context.getConcreteShift(), context.getDoctorUffaPriority().getDoctor());
+                    throw new ViolatedVincoloAssegnazioneTurnoTurnoException(concreteShift, context.getConcreteShift(), context.getSchedulingAlgorithmCharacterizingElement().getDoctor());
                 }
             }
         }

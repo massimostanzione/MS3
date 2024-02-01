@@ -19,7 +19,7 @@ public class ConstraintHoliday extends Constraint {
     @Override
     public void verifyConstraint(ContextConstraint context1) throws ViolatedConstraintException {
         ContextConstraint context=(ContextConstraint)context1; //FIXME
-        Doctor doctor = context.getDoctorUffaPriority().getDoctor();
+        Doctor doctor = context.getSchedulingAlgorithmCharacterizingElement().getDoctor();
         ConcreteShift concreteShift = context.getConcreteShift();
 
         for(Holiday holiday: context.getHolidays()) {

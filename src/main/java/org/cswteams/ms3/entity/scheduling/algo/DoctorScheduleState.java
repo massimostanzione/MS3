@@ -25,11 +25,6 @@ public class DoctorScheduleState extends SchedulingAlgorithmCharacterizingElemen
     private int uffaParziale = 0;
     private int uffaCumulativo = 0;
 
-    /**
-     * tutti i turni assegnati a questo utente nella pianificazione corrente
-     */
-    @Transient
-    List<ConcreteShift> assegnazioniTurnoCache;
 
 
     //funzione che ritorna la lista di ConcrateShift in un assegnazione corrente

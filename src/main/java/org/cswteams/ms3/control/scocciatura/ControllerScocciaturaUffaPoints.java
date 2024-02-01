@@ -49,7 +49,7 @@ public class ControllerScocciaturaUffaPoints extends ControllerScocciatura {
          * è in place.
          */
         Collections.shuffle(utenti);
-        utenti.sort((u1, u2) -> u1.getUffaParziale() - u2.getUffaParziale());
+       // FIXME utenti.sort((u1, u2) -> u1.getSchedule() - u2.getSchedule());
 
     }
 

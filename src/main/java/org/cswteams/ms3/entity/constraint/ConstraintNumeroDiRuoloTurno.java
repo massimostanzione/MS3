@@ -68,16 +68,16 @@ public class ConstraintNumeroDiRuoloTurno extends Constraint {
         //We calculate the number of doctors already assigned with the same seniority of the doctor we want to add to the schedule.
         int numAssignedDoctorsForSeniority = 0;
         for (Doctor doctor : assignedDoctors) {
-            if (doctor.getSeniority().equals(context.getDoctorUffaPriority().getDoctor().getSeniority()))
+            if (doctor.getSeniority().equals(context.getSchedulingAlgorithmCharacterizingElement().getDoctor().getSeniority()))
                 numAssignedDoctorsForSeniority++;
         }
         //Loop on the seniorities
         for (QuantityShiftSeniority quantityShiftSeniority : context.getConcreteShift().getShift().getQuantityShiftSeniority()) {
             //If the required number of doctors with that seniority was already reached, then we raise an exception.
             //Otherwise, we can add the doctor to the concrete shift.
-            if (quantityShiftSeniority.getSeniorityMap().containsKey(context.getDoctorUffaPriority().getDoctor().getSeniority())) {
-                if (numAssignedDoctorsForSeniority >= quantityShiftSeniority.getSeniorityMap().get(context.getDoctorUffaPriority().getDoctor().getSeniority()))
-                    throw new ViolatedVincoloRuoloNumeroException(context.getConcreteShift(), context.getDoctorUffaPriority().getDoctor());
+            if (quantityShiftSeniority.getSeniorityMap().containsKey(context.getSchedulingAlgorithmCharacterizingElement().getDoctor().getSeniority())) {
+                if (numAssignedDoctorsForSeniority >= quantityShiftSeniority.getSeniorityMap().get(context.getSchedulingAlgorithmCharacterizingElement().getDoctor().getSeniority()))
+                    throw new ViolatedVincoloRuoloNumeroException(context.getConcreteShift(), context.getSchedulingAlgorithmCharacterizingElement().getDoctor());
             }
         }
     }

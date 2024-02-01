@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,9 +39,6 @@ public class DoctorUffaPriority extends SchedulingAlgorithmCharacterizingElement
     private int partialNightPriority = 0;
     private int nightPriority = 0;
 
-    /** All the concrete shifts assigned to the doctor in the current schedule */
-    @Transient
-    List<ConcreteShift> assegnazioniTurnoCache;
 
 
     /**
@@ -65,6 +61,7 @@ public class DoctorUffaPriority extends SchedulingAlgorithmCharacterizingElement
 
 
     /** This method returns a ConcreteShift list for the current schedule. **/
+    @Override
     public List<ConcreteShift> getAssegnazioniTurnoCache(){
 
         if (assegnazioniTurnoCache == null){
