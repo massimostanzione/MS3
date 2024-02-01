@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * This class manages all the aspects concerning the uffa prioriy levels.
  */
-public class ControllerScocciaturaPriority extends AbstractControllerScocciatura{
+public class ControllerScocciaturaPriority extends ControllerScocciatura {
 
     private final int upperBound;
     private final int lowerBound;

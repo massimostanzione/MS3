@@ -2,7 +2,7 @@ package org.cswteams.ms3.control.scheduler.builder;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.cswteams.ms3.control.scocciatura.AbstractControllerScocciatura;
+import org.cswteams.ms3.control.scocciatura.ControllerScocciatura;
 import org.cswteams.ms3.entity.ConcreteShift;
 import org.cswteams.ms3.entity.Schedule;
 import org.cswteams.ms3.entity.constraint.Constraint;
@@ -32,7 +32,7 @@ public abstract class ScheduleBuilder {
      */
     @Getter
     @Setter
-    protected AbstractControllerScocciatura controllerScocciatura;
+    protected ControllerScocciatura controllerScocciatura;
     //protected ControllerScocciaturaUffaPoints controllerScocciatura;
 
     /**

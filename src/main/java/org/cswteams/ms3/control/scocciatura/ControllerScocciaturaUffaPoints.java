@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Classe che gestisce tutti gli aspetti collegata alla metrica UFFA
  */
-public class ControllerScocciaturaUffaPoints extends AbstractControllerScocciatura{
+public class ControllerScocciaturaUffaPoints extends ControllerScocciatura {
 
 
     public ControllerScocciaturaUffaPoints(List<Scocciatura> scocciature) {
