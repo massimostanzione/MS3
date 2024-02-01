@@ -3,7 +3,6 @@ package org.cswteams.ms3.rest;
 import org.cswteams.ms3.control.concreteShift.IConcreteShiftController;
 import org.cswteams.ms3.control.scambioTurno.IControllerScambioTurno;
 import org.cswteams.ms3.control.scheduler.ISchedulerController;
-import org.cswteams.ms3.control.scheduler.SchedulerControllerUffaPoints;
 import org.cswteams.ms3.control.utils.RispostaViolazioneVincoli;
 import org.cswteams.ms3.dto.concreteshift.GetAllConcreteShiftDTO;
 import org.cswteams.ms3.dto.ModifyConcreteShiftDTO;
@@ -12,7 +11,7 @@ import org.cswteams.ms3.dto.concreteshift.GetAvailableUsersForReplacementDTO;
 import org.cswteams.ms3.dto.medicalDoctor.MedicalDoctorInfoDTO;
 import org.cswteams.ms3.entity.Schedule;
 import org.cswteams.ms3.entity.constraint.Constraint;
-import org.cswteams.ms3.entity.scheduling.SchedulerFactory;
+import org.cswteams.ms3.entity.scheduling.SchedulerControllerFactory;
 import org.cswteams.ms3.entity.scheduling.SchedulerType;
 import org.cswteams.ms3.exception.ConcreteShiftException;
 import org.cswteams.ms3.exception.IllegalScheduleException;
@@ -159,8 +158,8 @@ public class ConcreteShiftRestEndpoint {
     }
 
     private ISchedulerController getScheduler(SchedulerType schedulerType) {
-        SchedulerFactory schedulerFactory = new SchedulerFactory();
-        return schedulerFactory.createScheduler(schedulerType);
+        SchedulerControllerFactory schedulerFactory = new SchedulerControllerFactory();
+        return schedulerFactory.createSchedulerController(schedulerType);
     }
 
 }

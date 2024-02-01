@@ -1,15 +1,13 @@
 package org.cswteams.ms3.rest;
 
 import org.cswteams.ms3.control.scheduler.ISchedulerController;
-import org.cswteams.ms3.control.scheduler.SchedulerControllerUffaPoints;
 import org.cswteams.ms3.dto.ScheduleGenerationDTO;
 import org.cswteams.ms3.dto.ScheduleDTO;
 import org.cswteams.ms3.dto.showscheduletoplanner.ShowScheduleToPlannerDTO;
 import org.cswteams.ms3.entity.Schedule;
-import org.cswteams.ms3.entity.scheduling.SchedulerFactory;
+import org.cswteams.ms3.entity.scheduling.SchedulerControllerFactory;
 import org.cswteams.ms3.entity.scheduling.SchedulerType;
 import org.cswteams.ms3.exception.UnableToBuildScheduleException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -144,7 +142,7 @@ public class ScheduleRestEndpoint {
     }
 
     private ISchedulerController getScheduler(SchedulerType schedulerType) {
-        SchedulerFactory schedulerFactory = new SchedulerFactory();
-        return schedulerFactory.createScheduler(schedulerType);
+        SchedulerControllerFactory schedulerFactory = new SchedulerControllerFactory();
+        return schedulerFactory.createSchedulerController(schedulerType);
     }
 }
