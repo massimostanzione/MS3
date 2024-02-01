@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
+import org.cswteams.ms3.control.scheduler.builder.ScheduleBuilderPriority;
 import org.cswteams.ms3.control.scocciatura.ControllerScocciaturaPriority;
 import org.cswteams.ms3.control.utils.DoctorAssignmentUtil;
 import org.cswteams.ms3.dao.*;

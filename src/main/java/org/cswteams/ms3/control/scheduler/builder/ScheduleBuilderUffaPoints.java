@@ -1,4 +1,4 @@
-package org.cswteams.ms3.control.scheduler;
+package org.cswteams.ms3.control.scheduler.builder;
 //TODO generalizzare con ScheduleBuilder
 
 import lombok.Getter;
@@ -22,7 +22,7 @@ import java.util.logging.Level;
 
 @Getter
 @Setter
-public class ScheduleBuilderUffaPoints extends AbstractScheduleBuilder {
+public class ScheduleBuilderUffaPoints extends ScheduleBuilder {
 
 
     /**

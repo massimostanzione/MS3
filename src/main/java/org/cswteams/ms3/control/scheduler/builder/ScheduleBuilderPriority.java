@@ -1,10 +1,9 @@
-package org.cswteams.ms3.control.scheduler;
+package org.cswteams.ms3.control.scheduler.builder;
 
 
 import lombok.Getter;
 import lombok.Setter;
 import org.cswteams.ms3.control.scocciatura.ControllerScocciaturaPriority;
-import org.cswteams.ms3.control.scocciatura.ControllerScocciaturaUffaPoints;
 import org.cswteams.ms3.control.utils.DoctorAssignmentUtil;
 import org.cswteams.ms3.entity.*;
 import org.cswteams.ms3.entity.constraint.Constraint;
@@ -18,15 +17,13 @@ import org.cswteams.ms3.exception.IllegalScheduleException;
 import org.cswteams.ms3.exception.NotEnoughFeasibleUsersException;
 import org.cswteams.ms3.exception.ViolatedConstraintException;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Getter
 @Setter
-public class ScheduleBuilderPriority extends AbstractScheduleBuilder{
+public class ScheduleBuilderPriority extends ScheduleBuilder {
 
     /** All the holidays saved in the system */
     private List<Holiday> holidays;
